@@ -1,0 +1,24 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "GithubOidcTrust",
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::CHANGE_ME_ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+        },
+        "StringLike": {
+          "token.actions.githubusercontent.com:sub": [
+            "repo:CHANGE_ME_ORG/CHANGE_ME_REPO:ref:refs/heads/main",
+            "repo:CHANGE_ME_ORG/CHANGE_ME_REPO:pull_request"
+          ]
+        }
+      }
+    }
+  ]
+}
