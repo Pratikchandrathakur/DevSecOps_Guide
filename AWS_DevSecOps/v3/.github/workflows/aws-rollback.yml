@@ -1,0 +1,29 @@
+name: AWS Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      rollback_image_tag:
+        description: "Known good image tag"
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Trigger ASG refresh (manual rollback flow)
+        run: |
+          echo "Rollback tag: ${{ github.event.inputs.rollback_image_tag }}"
+          # CHANGE_ME: implement your tag selection mechanism (SSM param, LT user-data template, etc.)
+          aws autoscaling start-instance-refresh \
+            --auto-scaling-group-name "${{ secrets.ASG_NAME }}"
