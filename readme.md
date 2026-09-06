@@ -8,7 +8,7 @@ This repository is a practical playbook to deploy, operate, secure, and scale pr
 - Monitoring, incident response, and continuous improvement
 - Capacity planning and vendor/ISP coordination
 ## File Structure
-sysops-playbook/
+```sysops-playbook/
 ├─ README.md
 ├─ 00-career-alignment/
 │  └─ sysops-engineer-role-mapping.md
@@ -53,6 +53,7 @@ sysops-playbook/
    ├─ risk-register-template.md
    ├─ maintenance-window-template.md
    └─ weekly-sysops-report-template.md
+```
 
 ## Scope
 
